@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DUALVein</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/index-styles.css" />
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="circle-bg">
+      <div class="circle circle-left"></div>
+      <div class="circle circle-right"></div>
+        <div class="circle circle-middle"></div>
+    </div>
+
+    <div class="hero-content">
+      <img src="assets/DUALVein-logo.PNG" alt="DUALVein Logo" class="logo" id="logo">
+      <h1 id="brand-text" class="hidden">DUALVein</h1>
+      <p id="tagline" class="hidden">Revolutionary Solution for Needle Injection Guidance</p>
+    </div>
+  </section>
+
+  <!-- Navigation (hidden initially) -->
+  <nav id="navbar" class="hidden">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#product">Product</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- Stats Section -->
+  <section id="stats" class="content-section">
+    <h2>Trusted by Professionals</h2>
+    <div class="stats-container">
+      <div class="stat-box"><h3>5+</h3><p>Institutions Collaborated</p></div>
+      <div class="stat-box"><h3>75%</h3><p>Accuracy Achieved</p></div>
+      <div class="stat-box"><h3>100+</h3><p>Users Tested</p></div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials" class="content-section">
+    <div class="testimonial">
+      <img src="assets/Slide1.PNG" alt="DUALVein in action" class="real-image">
+      <div class="testimonial-text">
+        <p>“DUALVein revolutionized our patient care. It’s fast, precise, and easy to use.”</p>
+        <h4>— Dr. J. Wong, MD</h4>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    window.addEventListener("load", () => {
+        const logo = document.getElementById("logo");
+        const brandText = document.getElementById("brand-text");
+        const tagline = document.getElementById("tagline");
+        const navbar = document.getElementById("navbar");
+
+        setTimeout(() => {
+            // Replace logo with text
+            logo.style.opacity = 0;
+            setTimeout(() => {
+            logo.style.display = "none";
+            brandText.classList.remove("hidden");
+            tagline.classList.remove("hidden");
+            setTimeout(() => {
+                brandText.style.opacity = 1;
+                tagline.style.opacity = 1;
+                // Move brand to left
+                brandText.style.transform = "center";
+                tagline.style.transform = "center";
+            }, 300);
+            }, 800);
+        }, 1000);
+
+        // Show navbar after animation
+        setTimeout(() => {
+          navbar.classList.remove("hidden");
+          requestAnimationFrame(() => {
+            setTimeout(() => {
+              navbar.classList.add("visible");
+            }, 20);
+          });
+        }, 3000);
+    });
+
+  </script>
+</body>
+</html>
