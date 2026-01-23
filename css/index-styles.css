@@ -73,16 +73,14 @@ body {
   z-index: 2;
 }
 
+
 .logo {
-  width: 800px;
-  transition: all 1s ease;
+  width: 700px;
 }
 
-.product {
-  width: 350px;
-  margin-top: 30px;
+.logo.hide {
   opacity: 0;
-  transition: opacity 1s ease;
+  transition : opacity 1s ease-out;
 }
 
 .hero-content h1 {
@@ -94,7 +92,11 @@ body {
             background-clip: text;
     -webkit-text-fill-color: transparent;
   opacity: 0;
-  transition: opacity 1s ease;
+  transition: opacity 2s ease;
+}
+
+.hero-content h1.show {
+  opacity: 1;
 }
 
 .hero-content p {
@@ -102,7 +104,11 @@ body {
   font-size: 1.25rem;
   font-style: italic;
   opacity: 0;
-  transition: opacity 1s ease;
+  transition: opacity 2s ease;
+}
+
+.hero-content p.show {
+  opacity: 1;
 }
 
 .hidden {
@@ -128,7 +134,7 @@ nav {
   pointer-events: none;
 }
 
-nav.visible {
+nav.show {
   opacity: 1;
   pointer-events: auto;
 }
@@ -160,15 +166,24 @@ nav a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 80px; /* spacing between boxes */
+  gap: 80px;
   margin-top: 40px;
-  flex-wrap: wrap; /* responsive behavior for smaller screens */
+  flex-wrap: wrap;
 }
+
 .stat-box {
   background: white;
   padding: 30px;
   border-radius: 10px;
   width: 250px;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.stat-box.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .stat-box h3 {
@@ -186,11 +201,18 @@ nav a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 40px;
+  gap: 100px;
   flex-wrap: wrap;
 }
 
+.testimonial p {
+  font-size: 1.25rem;
+  font-style: italic;
+  color: #333;
+}
+
 .real-image {
-  width: 300px;
+  height: 300px;
+  width: auto;
   border-radius: 10px;
 }
