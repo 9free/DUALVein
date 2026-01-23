@@ -3,30 +3,565 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DUALVein - Revolutionary Vein Visualization</title>
+  <title>About Us - DUALVein</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/index-styles.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      background: #ffffff;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 20px 60px;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+      z-index: 100;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 50px;
+      list-style: none;
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: #1E90FF;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #1E90FF;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .about-hero {
+      height: 60vh;
+      background: linear-gradient(135deg, #1E90FF 0%, #00B9D6 50%, #32CD32 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      margin-top: 60px;
+    }
+
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      top: -200px;
+      right: -200px;
+      animation: float 8s infinite ease-in-out;
+    }
+
+    .about-hero::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      bottom: -150px;
+      left: -150px;
+      animation: float 6s infinite ease-in-out reverse;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+    }
+
+    .about-hero-content {
+      text-align: center;
+      color: white;
+      z-index: 2;
+      padding: 0 40px;
+    }
+
+    .about-hero h1 {
+      font-size: 4.5rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .about-hero p {
+      font-size: 1.5rem;
+      font-weight: 400;
+      opacity: 0.95;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Content Section */
+    .content-section {
+      padding: 100px 80px;
+      position: relative;
+    }
+
+    .content-section h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 40px;
+      color: #1E90FF;
+    }
+
+    /* Our Story */
+    .story-section {
+      background: #f8f9fa;
+    }
+
+    .story-content {
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+      line-height: 2;
+      color: #555;
+      text-align: center;
+    }
+
+    .story-content p {
+      margin-bottom: 25px;
+    }
+
+    .highlight {
+      color: #1E90FF;
+      font-weight: 700;
+    }
+
+    /* Mission & Vision */
+    .mission-vision-section {
+      background: white;
+    }
+
+    .mission-vision-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 60px;
+      margin-top: 60px;
+    }
+
+    .mission-vision-card {
+      padding: 50px;
+      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+      border-radius: 20px;
+      border-left: 5px solid #1E90FF;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      transform: translateX(-30px);
+      opacity: 0;
+      transition: all 0.6s ease;
+    }
+
+    .mission-vision-card.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .mission-vision-card h3 {
+      font-size: 2rem;
+      color: #1E90FF;
+      margin-bottom: 25px;
+      font-weight: 700;
+    }
+
+    .mission-vision-card p {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: #555;
+    }
+
+    /* Problem Deep Dive */
+    .problem-deep-section {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    .problem-deep-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .problem-block {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.6s ease;
+    }
+
+    .problem-block.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .problem-block h3 {
+      font-size: 1.8rem;
+      color: #d9534f;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .problem-block p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #555;
+    }
+
+    .problem-block ul {
+      margin-top: 20px;
+      margin-left: 30px;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #555;
+    }
+
+    .problem-block li {
+      margin-bottom: 10px;
+    }
+
+    /* Our Solution */
+    .solution-deep-section {
+      background: white;
+    }
+
+    .solution-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .solution-feature {
+      padding: 40px;
+      background: linear-gradient(135deg, #1E90FF 0%, #00B9D6 100%);
+      border-radius: 20px;
+      color: white;
+      text-align: center;
+      transform: scale(0.95);
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+
+    .solution-feature.show {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .solution-feature:hover {
+      transform: scale(1.05);
+      box-shadow: 0 20px 50px rgba(30, 144, 255, 0.3);
+    }
+
+    .solution-feature h3 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .solution-feature p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      opacity: 0.95;
+    }
+
+    /* Team Section */
+    .team-section {
+      background: #f8f9fa;
+    }
+
+    .team-intro {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 60px;
+      font-size: 1.2rem;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .team-card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+
+    .team-card.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .team-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+    }
+
+    .team-icon {
+      width: 140px;
+      height: 140px;
+      background: linear-gradient(135deg, #1E90FF, #00B9D6);
+      border-radius: 50%;
+      margin: 0 auto 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .team-card h3 {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .team-card .role {
+      color: #1E90FF;
+      font-weight: 600;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .team-card p {
+      color: #666;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    /* Values Section */
+    .values-section {
+      background: white;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .value-card {
+      padding: 40px;
+      background: #f8f9fa;
+      border-radius: 20px;
+      text-align: center;
+      border-top: 4px solid #1E90FF;
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+
+    .value-card.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .value-card h3 {
+      font-size: 1.5rem;
+      color: #1E90FF;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .value-card p {
+      color: #555;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    /* Milestones Section */
+    .milestones-section {
+      background: linear-gradient(135deg, #1E90FF 0%, #00B9D6 100%);
+      color: white;
+    }
+
+    .milestones-section h2 {
+      color: white;
+    }
+
+    .timeline {
+      max-width: 900px;
+      margin: 60px auto 0;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .milestone {
+      display: flex;
+      align-items: center;
+      margin-bottom: 60px;
+      position: relative;
+      transform: translateX(-50px);
+      opacity: 0;
+      transition: all 0.6s ease;
+    }
+
+    .milestone.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .milestone:nth-child(even) {
+      flex-direction: row-reverse;
+      transform: translateX(50px);
+    }
+
+    .milestone:nth-child(even).show {
+      transform: translateX(0);
+    }
+
+    .milestone-content {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 15px;
+      margin: 0 30px;
+    }
+
+    .milestone-year {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .milestone-content h3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .milestone-content p {
+      font-size: 1rem;
+      line-height: 1.6;
+      opacity: 0.95;
+    }
+
+    .milestone-dot {
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .about-hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .about-hero p {
+        font-size: 1.1rem;
+      }
+
+      .content-section {
+        padding: 60px 30px;
+      }
+
+      .content-section h2 {
+        font-size: 2rem;
+      }
+
+      nav {
+        padding: 15px 20px;
+      }
+
+      nav ul {
+        gap: 20px;
+      }
+
+      .mission-vision-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline::before {
+        left: 20px;
+      }
+
+      .milestone {
+        flex-direction: column !important;
+        align-items: flex-start;
+        padding-left: 50px;
+      }
+
+      .milestone-dot {
+        left: 20px;
+      }
+
+      .milestone-content {
+        margin: 0;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="circle-bg">
-      <div class="circle circle-left"></div>
-      <div class="circle circle-right"></div>
-      <div class="circle circle-middle"></div>
-    </div>
-
-    <div class="hero-content">
-      <img src="assets/DUALVein-logo.PNG" alt="DUALVein Logo" class="logo" id="logo">
-      <h1 id="brand-text" class="hidden">DUALVein</h1>
-      <p id="tagline" class="hidden">Revolutionary Solution for Needle Injection Guidance</p>
-      <a href="#contact" id="cta-btn" class="cta-button hidden">Get Started</a>
-    </div>
-  </section>
-
   <!-- Navigation -->
-  <nav id="navbar" class="hidden">
+  <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About Us</a></li>
@@ -35,234 +570,254 @@
     </ul>
   </nav>
 
-  <!-- Problem Section -->
-  <section class="content-section problem-section">
-    <h2 class="problem-headline">The $390M Problem</h2>
-    <p style="text-align: center; font-size: 1.3rem; color: #555; max-width: 800px; margin: 0 auto 40px;">
-      Every 3 minutes, nearly 50,000 patients worldwide receive an IV injection. But the painful truth is that many of these procedures fail on the first attempt.
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <div class="about-hero-content">
+      <h1>About DUALVein</h1>
+      <p>Transforming medical education through innovative technology and compassionate design</p>
+    </div>
+  </section>
+
+  <!-- Our Story -->
+  <section class="content-section story-section">
+    <h2>Our Story</h2>
+    <div class="story-content">
+      <p>
+        DUALVein was born from a simple observation: <span class="highlight">medical students train on mannequins with perfect, visible veins—but real patients are nothing like that.</span>
+      </p>
+      <p>
+        We witnessed countless nursing and medical students struggle during their first real IV insertions. The gap between classroom training and clinical reality was causing unnecessary pain for patients and anxiety for healthcare professionals.
+      </p>
+      <p>
+        <span class="highlight">We knew there had to be a better way.</span> A way to bridge the training gap without compromising on affordability or accessibility. That's when DUALVein was conceived—an AI-powered solution that makes the invisible visible.
+      </p>
+    </div>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section class="content-section mission-vision-section">
+    <h2>Mission & Vision</h2>
+    <div class="mission-vision-grid">
+      <div class="mission-vision-card">
+        <h3>Our Mission</h3>
+        <p>
+          To revolutionize medical training by providing affordable, accessible, and accurate vein visualization technology that bridges the gap between classroom learning and real-world clinical practice—ultimately reducing patient discomfort and improving healthcare outcomes.
+        </p>
+      </div>
+      <div class="mission-vision-card">
+        <h3>Our Vision</h3>
+        <p>
+          A future where every medical and nursing student has access to realistic training tools that prepare them for the complexities of real patients. We envision a world where failed IV attempts are rare, patient pain is minimized, and healthcare professionals feel confident from day one.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Deep Dive -->
+  <section class="content-section problem-deep-section">
+    <h2>Understanding the Problem</h2>
+    <div class="problem-deep-content">
+      <div class="problem-block">
+        <h3>The Training Gap</h3>
+        <p>
+          Medical and nursing students practice IV insertion on standardized mannequins with clear, shallow, and predictable veins. While this builds basic technique, it fails to prepare students for the reality of clinical practice where veins are:
+        </p>
+        <ul>
+          <li>Deep beneath the skin surface</li>
+          <li>Invisible to the naked eye</li>
+          <li>Variable across patients of different ages, skin tones, and health conditions</li>
+          <li>Difficult to locate in elderly, pediatric, or chronically ill patients</li>
+        </ul>
+      </div>
+
+      <div class="problem-block">
+        <h3>The Cost of Failure</h3>
+        <p>
+          The consequences of this training gap are severe. Globally, 4 billion failed IV attempts occur every year. In China alone, this results in 390 million HKD in annual compensation costs. Beyond the financial burden, patients suffer:
+        </p>
+        <ul>
+          <li>Unnecessary pain and bruising</li>
+          <li>Prolonged procedures and anxiety</li>
+          <li>Risk of complications from multiple attempts</li>
+          <li>Loss of trust in healthcare providers</li>
+        </ul>
+      </div>
+
+      <div class="problem-block">
+        <h3>Existing Solutions Fall Short</h3>
+        <p>
+          While vein visualization devices exist, they come with significant limitations:
+        </p>
+        <ul>
+          <li><strong>Cost:</strong> Existing solutions cost 15,000+ HKD, making them inaccessible to most training institutions</li>
+          <li><strong>Complexity:</strong> Complicated interfaces require extensive training to use effectively</li>
+          <li><strong>Portability:</strong> Bulky designs limit where and how they can be used</li>
+          <li><strong>Limited AI:</strong> Lack of intelligent guidance systems for students</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Solution -->
+  <section class="content-section solution-deep-section">
+    <h2>Our Solution</h2>
+    <p style="text-align: center; max-width: 800px; margin: 0 auto 20px; font-size: 1.2rem; color: #555; line-height: 1.8;">
+      DUALVein is more than just a vein visualization device—it's an intelligent training companion powered by cutting-edge AI and near-infrared technology.
     </p>
-    <div class="problem-grid" id="problem-grid">
-      <div class="problem-card">
-        <div class="problem-number">1 in 4</div>
-        <p>Patients suffer bruising, pain, or discomfort from failed IV attempts</p>
+    <div class="solution-features">
+      <div class="solution-feature">
+        <h3>AI-Powered Detection</h3>
+        <p>Custom-built algorithms for precise vein segmentation that work across different skin tones, ages, and anatomies—providing real-time guidance for safer insertion.</p>
       </div>
-      <div class="problem-card">
-        <div class="problem-number">4B</div>
-        <p>Failed IV cases occur globally every year</p>
+      <div class="solution-feature">
+        <h3>Near-Infrared Technology</h3>
+        <p>Advanced imaging reveals deep, invisible veins with clarity, giving students a realistic view of vascular anatomy they'll encounter in practice.</p>
       </div>
-      <div class="problem-card">
-        <div class="problem-number">390M HKD</div>
-        <p>Lost annually in China alone due to compensation costs</p>
+      <div class="solution-feature">
+        <h3>Accessible & Affordable</h3>
+        <p>Priced 5x cheaper than competitors at under 3,000 HKD manufacturing cost, making professional-grade training accessible to institutions worldwide.</p>
       </div>
-      <div class="problem-card">
-        <div class="problem-number">50K</div>
-        <p>IVs administered every 3 minutes worldwide</p>
+      <div class="solution-feature">
+        <h3>Portable Design</h3>
+        <p>Compact and lightweight, DUALVein connects to any laptop—enabling training anywhere, from classrooms to clinical skills labs.</p>
+      </div>
+      <div class="solution-feature">
+        <h3>Intuitive Interface</h3>
+        <p>Simple 3-step operation requires minimal training. Connect, position, and detect—ready to use in seconds.</p>
+      </div>
+      <div class="solution-feature">
+        <h3>Proven Results</h3>
+        <p>75% vein detection accuracy, outperforming newly trained nurses by 30%, with 95% student approval rating.</p>
       </div>
     </div>
   </section>
 
-  <!-- Solution Section -->
-  <section class="content-section solution-section">
-    <h2>Meet DUALVein</h2>
-    <p class="solution-intro">
-      An AI-powered, near-infrared vein visualization system that bridges the gap between classroom training and real clinical practice. DUALVein makes invisible veins visible and guides students toward safer IV insertion.
+  <!-- Our Team -->
+  <section class="content-section team-section">
+    <h2>Our Team</h2>
+    <p class="team-intro">
+      DUALVein is brought to life by a diverse team of biomedical engineers, AI researchers, and business strategists, with research and development support from The Chinese University of Hong Kong (CUHK).
     </p>
-    <div class="benefits-grid" id="benefits-grid">
-      <div class="benefit-card">
-        <div class="benefit-icon">$</div> 
-        <h3>Affordable</h3>
-        <p>Under 3,000 HKD manufacturing cost—up to 5x cheaper than existing solutions</p>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-icon">BME</div>
+        <h3>Biomedical Engineers</h3>
+        <p class="role">Hardware & Design</p>
+        <p>Experts in medical device development, optical systems, and human-centered design, bringing DUALVein from concept to reality.</p>
       </div>
-      <div class="benefit-card">
-        <div class="benefit-icon">75%</div>
-        <h3>Accurate</h3>
-        <p>75% vein detection accuracy, outperforming newly trained nurses by 30%</p>
+      <div class="team-card">
+        <div class="team-icon">AI</div>
+        <h3>AI Researchers</h3>
+        <p class="role">Machine Learning & Computer Vision</p>
+        <p>Specialists in deep learning and image processing, developing custom algorithms for accurate vein detection across diverse populations.</p>
       </div>
-      <div class="benefit-card">
-        <div class="benefit-icon">3</div>
-        <h3>Simple to Use</h3>
-        <p>Connect, turn on, place hand, and click—ready in seconds</p>
+      <div class="team-card">
+        <div class="team-icon">BIZ</div> 
+        <h3>Business Strategists</h3>
+        <p class="role">Strategy & Growth</p>
+        <p>Experienced in healthcare markets, partnerships, and scaling innovative solutions to maximize impact globally.</p>
       </div>
-      <div class="benefit-card">
-        <div class="benefit-icon">GO</div>
-        <h3>Portable</h3>
-        <p>Compact design works with any laptop—train anywhere, anytime</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Stats Section -->
-  <section class="content-section stats-section">
-    <h2>Trusted by Professionals</h2>
-    <div class="stats-container" id="stats-container">
-      <div class="stat-box">
-        <h3 data-count="5">0+</h3>
-        <p>Institutions Collaborated</p>
-      </div>
-      <div class="stat-box">
-        <h3 data-count="75">0%</h3>
-        <p>Accuracy Achieved</p>
-      </div>
-      <div class="stat-box">
-        <h3 data-count="100">0+</h3>
-        <p>Users Tested</p>
-      </div>
-      <div class="stat-box">
-        <h3 data-count="95">0%</h3>
-        <p>Student Approval Rate</p>
+      <div class="team-card">
+        <div class="team-icon">R&D</div>
+        <h3>CUHK Partnership</h3>
+        <p class="role">Research & Development</p>
+        <p>Collaborative R&D support from world-class researchers, providing access to cutting-edge facilities and medical expertise.</p>
       </div>
     </div>
   </section>
 
-  <!-- How It Works Section -->
-  <section class="content-section how-it-works-section">
-    <h2>How It Works</h2>
-    <div class="steps-container" id="steps-container">
-      <div class="step-card">
-        <div class="step-number">1</div>
-        <h3>Connect</h3>
-        <p>Simply connect DUALVein to your laptop via USB</p>
+  <!-- Our Values -->
+  <section class="content-section values-section">
+    <h2>Our Values</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <h3>Innovation</h3>
+        <p>We push boundaries in medical education technology, constantly seeking better ways to prepare healthcare professionals.</p>
       </div>
-      <div class="step-card">
-        <div class="step-number">2</div>
-        <h3>Position</h3>
-        <p>Place the patient's hand under the device</p>
+      <div class="value-card">
+        <h3>Accessibility</h3>
+        <p>Quality training tools should be available to all institutions, regardless of budget or location.</p>
       </div>
-      <div class="step-card">
-        <div class="step-number">3</div>
-        <h3>Detect</h3>
-        <p>AI detects and segments veins in real-time</p>
+      <div class="value-card">
+        <h3>Patient Safety</h3>
+        <p>Every design decision prioritizes reducing patient discomfort and improving clinical outcomes.</p>
       </div>
-      <div class="step-card">
-        <div class="step-number">4</div>
-        <h3>Guide</h3>
-        <p>Visual projection guides precise IV insertion</p>
+      <div class="value-card">
+        <h3>Evidence-Based</h3>
+        <p>We validate our technology through rigorous testing with real users and measurable performance metrics.</p>
       </div>
     </div>
   </section>
 
-  <!-- Testimonials Section -->
-  <section class="content-section testimonials-section">
-    <h2>What Professionals Say</h2>
-    <div class="testimonial-container" id="testimonial-container">
-      <img src="assets/Realuse1.jpg" alt="DUALVein in action" class="real-image">
-      <div class="testimonial-text">
-        <p>It's fast, precise, and easy to use.</p>
-        <h4>— Dr. Sirijaroen A., Pediatrician</h4>
+  <!-- Milestones -->
+  <section class="content-section milestones-section">
+    <h2>Our Journey</h2>
+    <div class="timeline">
+      <div class="milestone">
+        <div class="milestone-content">
+          <div class="milestone-year">2023</div>
+          <h3>Project Inception</h3>
+          <p>DUALVein concept developed in response to observed training gaps in medical education.</p>
+        </div>
+        <div class="milestone-dot"></div>
       </div>
-    </div>
-  </section>
+      
+      <div class="milestone">
+        <div class="milestone-content">
+          <div class="milestone-year">2024</div>
+          <h3>Prototype Development</h3>
+          <p>First working prototype completed with AI-powered vein detection algorithm achieving 75% accuracy.</p>
+        </div>
+        <div class="milestone-dot"></div>
+      </div>
+      
+      <div class="milestone">
+        <div class="milestone-content">
+          <div class="milestone-year">2024</div>
+          <h3>User Testing</h3>
+          <p>Tested with 100+ medical and nursing students across 5+ institutions, achieving 95% approval rating.</p>
+        </div>
+        <div class="milestone-dot"></div>
+      </div>
+      
+      <div class="milestone">
+        <div class="milestone-content">
+          <div class="milestone-year">2025</div>
+          <h3>Partnership Expansion</h3>
+          <p>Collaborating with leading nursing schools and hospitals to refine and scale DUALVein technology.</p>
+        </div>
+        <div class="milestone-dot"></div>
+      </div>
 
-  <!-- CTA Section -->
-  <section class="cta-section" id="contact">
-    <h2>Join the Revolution in Medical Training</h2>
-    <p>Partner with us to bring DUALVein to your institution and transform how healthcare professionals learn IV insertion.</p>
-    <div class="cta-buttons">
-      <a href="contact.html" class="cta-btn cta-btn-primary">Partner With Us</a>
-      <a href="product.html" class="cta-btn cta-btn-secondary">Request Demo</a>
+      <div class="milestone">
+        <div class="milestone-content">
+          <div class="milestone-year">2026</div>
+          <h3>Market Launch</h3>
+          <p>Commercial launch in Hong Kong with plans to expand across Mainland China and Asia.</p>
+        </div>
+        <div class="milestone-dot"></div>
+      </div>
     </div>
   </section>
 
   <script>
-    window.addEventListener("load", () => {
-      const logo = document.getElementById("logo");
-      const brandText = document.getElementById("brand-text");
-      const tagline = document.getElementById("tagline");
-      const ctaBtn = document.getElementById("cta-btn");
-      const navbar = document.getElementById("navbar");
-      const circles = document.querySelectorAll(".circle");
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '0px 0px -100px 0px'
+    };
 
-      // Logo animation sequence
-      setTimeout(() => {
-        logo.classList.add("hide");
-        setTimeout(() => {
-          logo.style.display = "none";
-          brandText.classList.remove("hidden");
-          tagline.classList.remove("hidden");
-          ctaBtn.classList.remove("hidden");
-          circles.forEach(circle => circle.classList.add("show"));
-          
-          setTimeout(() => {
-            brandText.classList.add("show");
-            tagline.classList.add("show");
-            setTimeout(() => {
-              ctaBtn.classList.add("show");
-            }, 500);
-          }, 300);
-        }, 1000);
-      }, 1500);
-
-      // Navbar appearance
-      setTimeout(() => {
-        navbar.classList.remove("hidden");
-        requestAnimationFrame(() => {
-          setTimeout(() => {
-            navbar.classList.add("show");
-          }, 20);
-        });
-      }, 3500);
-
-      // Scroll animations
-      const observerOptions = {
-        threshold: 0.2,
-        rootMargin: '0px 0px -100px 0px'
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('show');
-          }
-        });
-      }, observerOptions);
-
-      // Observe all animated elements
-      document.querySelectorAll('.problem-card, .benefit-card, .stat-box, .step-card, .testimonial-container').forEach(el => {
-        observer.observe(el);
-      });
-
-      // Animate stats numbers
-      const animateStats = (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const counters = entry.target.querySelectorAll('.stat-box h3');
-            counters.forEach(counter => {
-              if (!counter.classList.contains('counted')) {
-                counter.classList.add('counted');
-                const target = parseInt(counter.getAttribute('data-count'));
-                const suffix = counter.textContent.includes('%') ? '%' : '+';
-                let count = 0;
-                const duration = 2000;
-                const increment = target / (duration / 16);
-                
-                const updateCount = () => {
-                  count += increment;
-                  if (count >= target) {
-                    counter.textContent = target + suffix;
-                  } else {
-                    counter.textContent = Math.floor(count) + suffix;
-                    requestAnimationFrame(updateCount);
-                  }
-                };
-                requestAnimationFrame(updateCount);
-              }
-            });
-          }
-        });
-      };
-
-      const statsObserver = new IntersectionObserver(animateStats, observerOptions);
-      const statsSection = document.getElementById('stats-container');
-      if (statsSection) statsObserver.observe(statsSection);
-
-      // Fade circles on scroll
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 100) {
-          circles.forEach(circle => circle.classList.add('fade'));
-        } else {
-          circles.forEach(circle => circle.classList.remove('fade'));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
         }
       });
+    }, observerOptions);
+
+    // Observe all animated elements
+    document.querySelectorAll('.mission-vision-card, .problem-block, .solution-feature, .team-card, .value-card, .milestone').forEach(el => {
+      observer.observe(el);
     });
   </script>
 </body>
