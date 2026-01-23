@@ -3,148 +3,267 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DUALVein</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>DUALVein - Revolutionary Vein Visualization</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/index-styles.css" />
 </head>
 <body>
 
   <!-- Hero Section -->
-  <section id="home" class="hero">
+  <section class="hero">
     <div class="circle-bg">
       <div class="circle circle-left"></div>
       <div class="circle circle-right"></div>
-        <div class="circle circle-middle"></div>
+      <div class="circle circle-middle"></div>
     </div>
 
     <div class="hero-content">
       <img src="assets/DUALVein-logo.PNG" alt="DUALVein Logo" class="logo" id="logo">
       <h1 id="brand-text" class="hidden">DUALVein</h1>
       <p id="tagline" class="hidden">Revolutionary Solution for Needle Injection Guidance</p>
+      <a href="#contact" id="cta-btn" class="cta-button hidden">Get Started</a>
     </div>
   </section>
 
-  <!-- Navigation (hidden initially) -->
+  <!-- Navigation -->
   <nav id="navbar" class="hidden">
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About Us</a></li>
-      <li><a href="#product">Product</a></li>
-      <li><a href="#contact">Contact Us</a></li>
+      <li><a href="product.html">Product</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
     </ul>
   </nav>
 
-  <!-- Stats Section -->
-  <section id="stats" class="content-section">
-      <h2>Trusted by Professionals</h2>
-      <div class="stats-container">
-        <div class="stat-box">
-          <h3 data-count="5">5+</h3>
-          <p>Institutions Collaborated</p>
-        </div>
-        <div class="stat-box">
-          <h3 data-count="75">75%</h3>
-          <p>Accuracy Achieved</p>
-        </div>
-        <div class="stat-box">
-          <h3 data-count="100">100+</h3>
-          <p>Users Tested</p>
-        </div>
+  <!-- Problem Section -->
+  <section class="content-section problem-section">
+    <h2 class="problem-headline">The $390M Problem</h2>
+    <p style="text-align: center; font-size: 1.3rem; color: #555; max-width: 800px; margin: 0 auto 40px;">
+      Every 3 minutes, nearly 50,000 patients worldwide receive an IV injection. But the painful truth is that many of these procedures fail on the first attempt.
+    </p>
+    <div class="problem-grid" id="problem-grid">
+      <div class="problem-card">
+        <div class="problem-number">1 in 4</div>
+        <p>Patients suffer bruising, pain, or discomfort from failed IV attempts</p>
       </div>
+      <div class="problem-card">
+        <div class="problem-number">4B</div>
+        <p>Failed IV cases occur globally every year</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-number">390M HKD</div>
+        <p>Lost annually in China alone due to compensation costs</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-number">50K</div>
+        <p>IVs administered every 3 minutes worldwide</p>
+      </div>
+    </div>
   </section>
 
+  <!-- Solution Section -->
+  <section class="content-section solution-section">
+    <h2>Meet DUALVein</h2>
+    <p class="solution-intro">
+      An AI-powered, near-infrared vein visualization system that bridges the gap between classroom training and real clinical practice. DUALVein makes invisible veins visible and guides students toward safer IV insertion.
+    </p>
+    <div class="benefits-grid" id="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">$</div> 
+        <h3>Affordable</h3>
+        <p>Under 3,000 HKD manufacturing cost—up to 5x cheaper than existing solutions</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">75%</div>
+        <h3>Accurate</h3>
+        <p>75% vein detection accuracy, outperforming newly trained nurses by 30%</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">3</div>
+        <h3>Simple to Use</h3>
+        <p>Connect, turn on, place hand, and click—ready in seconds</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">GO</div>
+        <h3>Portable</h3>
+        <p>Compact design works with any laptop—train anywhere, anytime</p>
+      </div>
+    </div>
+  </section>
 
-  <!-- Testimonials -->
-  <section id="testimonials" class="content-section">
-    <div class="testimonial">
+  <!-- Stats Section -->
+  <section class="content-section stats-section">
+    <h2>Trusted by Professionals</h2>
+    <div class="stats-container" id="stats-container">
+      <div class="stat-box">
+        <h3 data-count="5">0+</h3>
+        <p>Institutions Collaborated</p>
+      </div>
+      <div class="stat-box">
+        <h3 data-count="75">0%</h3>
+        <p>Accuracy Achieved</p>
+      </div>
+      <div class="stat-box">
+        <h3 data-count="100">0+</h3>
+        <p>Users Tested</p>
+      </div>
+      <div class="stat-box">
+        <h3 data-count="95">0%</h3>
+        <p>Student Approval Rate</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="content-section how-it-works-section">
+    <h2>How It Works</h2>
+    <div class="steps-container" id="steps-container">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h3>Connect</h3>
+        <p>Simply connect DUALVein to your laptop via USB</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h3>Position</h3>
+        <p>Place the patient's hand under the device</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h3>Detect</h3>
+        <p>AI detects and segments veins in real-time</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <h3>Guide</h3>
+        <p>Visual projection guides precise IV insertion</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="content-section testimonials-section">
+    <h2>What Professionals Say</h2>
+    <div class="testimonial-container" id="testimonial-container">
       <img src="assets/Realuse1.jpg" alt="DUALVein in action" class="real-image">
       <div class="testimonial-text">
-        <p>“It’s fast, precise, and easy to use.”</p>
+        <p>It's fast, precise, and easy to use.</p>
         <h4>— Dr. Sirijaroen A., Pediatrician</h4>
       </div>
     </div>
   </section>
 
+  <!-- CTA Section -->
+  <section class="cta-section" id="contact">
+    <h2>Join the Revolution in Medical Training</h2>
+    <p>Partner with us to bring DUALVein to your institution and transform how healthcare professionals learn IV insertion.</p>
+    <div class="cta-buttons">
+      <a href="contact.html" class="cta-btn cta-btn-primary">Partner With Us</a>
+      <a href="product.html" class="cta-btn cta-btn-secondary">Request Demo</a>
+    </div>
+  </section>
+
   <script>
-  window.addEventListener("load", () => {
-  const logo = document.getElementById("logo");
-  const brandText = document.getElementById("brand-text");
-  const tagline = document.getElementById("tagline");
-  const navbar = document.getElementById("navbar");
-  const circles = document.querySelectorAll(".circle");
+    window.addEventListener("load", () => {
+      const logo = document.getElementById("logo");
+      const brandText = document.getElementById("brand-text");
+      const tagline = document.getElementById("tagline");
+      const ctaBtn = document.getElementById("cta-btn");
+      const navbar = document.getElementById("navbar");
+      const circles = document.querySelectorAll(".circle");
 
-    // Logo animation
-  setTimeout(() => {
-    logo.classList.add("hide");
-    setTimeout(() => {
-      logo.style.display = "none";
-      brandText.classList.remove("hidden");
-      tagline.classList.remove("hidden");
-      circles.forEach(circle => circle.classList.add("show"));
+      // Logo animation sequence
       setTimeout(() => {
-        brandText.classList.add("show");
-        tagline.classList.add("show");
-      }, 300);
-    }, 800);
-  }, 1000);
+        logo.classList.add("hide");
+        setTimeout(() => {
+          logo.style.display = "none";
+          brandText.classList.remove("hidden");
+          tagline.classList.remove("hidden");
+          ctaBtn.classList.remove("hidden");
+          circles.forEach(circle => circle.classList.add("show"));
+          
+          setTimeout(() => {
+            brandText.classList.add("show");
+            tagline.classList.add("show");
+            setTimeout(() => {
+              ctaBtn.classList.add("show");
+            }, 500);
+          }, 300);
+        }, 1000);
+      }, 1500);
 
-  // Navbar appearance
-  setTimeout(() => {
-    navbar.classList.remove("hidden");
-    requestAnimationFrame(() => {
+      // Navbar appearance
       setTimeout(() => {
-        navbar.classList.add("show");
-      }, 20);
-    });
-  }, 3000);
+        navbar.classList.remove("hidden");
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            navbar.classList.add("show");
+          }, 20);
+        });
+      }, 3500);
 
-  // Scroll-based animations
-  window.addEventListener("scroll", () => {
-    const statsSection = document.getElementById("stats");
-    const testimonialsSection = document.getElementById("testimonials");
-    const triggerBottom = window.innerHeight * 0.8;
-    const statsTop = statsSection.getBoundingClientRect().top;
-    const testimonialsTop = testimonialsSection.getBoundingClientRect().top;
+      // Scroll animations
+      const observerOptions = {
+        threshold: 0.2,
+        rootMargin: '0px 0px -100px 0px'
+      };
 
-    // Show stats section and animate numbers
-    if (statsTop < triggerBottom) {
-      statsSection.querySelectorAll(".stat-box").forEach(box => box.classList.add("show"));
-      statsSection.querySelectorAll(".stat-box h3").forEach(counter => {
-        if (!counter.classList.contains("counted")) {
-          counter.classList.add("counted");
-          const target = parseInt(counter.getAttribute("data-count"));
-          let count = 0;
-          const duration = 1000;
-          const step = target / (duration / 16);
-          const updateCount = () => {
-            count += step;
-            if (count >= target) {
-              counter.textContent = counter.getAttribute("data-count") + (counter.textContent.includes("%") ? "%" : "+");
-            } else {
-              counter.textContent = Math.floor(count) + (counter.textContent.includes("%") ? "%" : "+");
-              requestAnimationFrame(updateCount);
-            }
-          };
-          requestAnimationFrame(updateCount);
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+          }
+        });
+      }, observerOptions);
+
+      // Observe all animated elements
+      document.querySelectorAll('.problem-card, .benefit-card, .stat-box, .step-card, .testimonial-container').forEach(el => {
+        observer.observe(el);
+      });
+
+      // Animate stats numbers
+      const animateStats = (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const counters = entry.target.querySelectorAll('.stat-box h3');
+            counters.forEach(counter => {
+              if (!counter.classList.contains('counted')) {
+                counter.classList.add('counted');
+                const target = parseInt(counter.getAttribute('data-count'));
+                const suffix = counter.textContent.includes('%') ? '%' : '+';
+                let count = 0;
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                
+                const updateCount = () => {
+                  count += increment;
+                  if (count >= target) {
+                    counter.textContent = target + suffix;
+                  } else {
+                    counter.textContent = Math.floor(count) + suffix;
+                    requestAnimationFrame(updateCount);
+                  }
+                };
+                requestAnimationFrame(updateCount);
+              }
+            });
+          }
+        });
+      };
+
+      const statsObserver = new IntersectionObserver(animateStats, observerOptions);
+      const statsSection = document.getElementById('stats-container');
+      if (statsSection) statsObserver.observe(statsSection);
+
+      // Fade circles on scroll
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+          circles.forEach(circle => circle.classList.add('fade'));
+        } else {
+          circles.forEach(circle => circle.classList.remove('fade'));
         }
       });
-    }
-
-    // Show testimonials section
-    if (testimonialsTop < triggerBottom) {
-      testimonialsSection.classList.add("show");
-    }
-
-    // Fade circles on scroll
-    if (window.scrollY > 50) {
-      circles.forEach(circle => circle.classList.add("fade"));
-    } else {
-      circles.forEach(circle => circle.classList.remove("fade"));
-    }
-  });
-});
-
+    });
   </script>
 </body>
 </html>
