@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DUALVein Learning Center • Free IV & Needle Insertion Resources</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1E90FF;
+      --secondary: #00B9D6;
+      --accent: #32CD32;
+      --dark: #1a1a1a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* Navbar (consistent with main site) */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 20px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+      z-index: 1000;
+    }
+
+    .nav-logo {
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--primary);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #333;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 280px;
+      height: 100vh;
+      background: white;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+      transform: translateX(-100%);
+      transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+      z-index: 1100;
+      padding-top: 80px;
+      overflow-y: auto;
+    }
+
+    .sidebar.open {
+      transform: translateX(0);
+    }
+
+    .sidebar-header {
+      padding: 0 25px 20px;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 20px;
+    }
+
+    .sidebar-header h2 {
+      font-size: 1.4rem;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+    }
+
+    .sidebar-menu li {
+      padding: 14px 25px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .sidebar-menu li:hover {
+      background: #f0f7ff;
+      color: var(--primary);
+    }
+
+    .sidebar-menu li.active {
+      background: #f0f7ff;
+      color: var(--primary);
+      border-left: 4px solid var(--primary);
+    }
+
+    .sidebar-menu li i {
+      font-size: 1.3rem;
+      width: 24px;
+    }
+
+    /* Overlay */
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1090;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .sidebar-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Main Content Area */
+    .main-content {
+      margin-left: 0;
+      padding-top: 90px;
+      transition: margin-left 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    .main-content.with-sidebar {
+      margin-left: 280px;
+    }
+
+    /* Hero / Update Slider */
+    .learning-hero {
+      background: linear-gradient(135deg, #f8f9fa, #e9f5ff);
+      padding: 40px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .update-slider {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(30, 144, 255, 0.15);
+    }
+
+    .slide {
+      display: none;
+      padding: 30px 50px;
+      background: white;
+      text-align: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    .slide h3 {
+      font-size: 1.6rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .slide p {
+      font-size: 1.1rem;
+      color: #555;
+      max-width: 700px;
+    }
+
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      background: #ccc;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .dot.active {
+      background: var(--primary);
+      transform: scale(1.3);
+    }
+
+    /* Content Section */
+    .content-section {
+      padding: 60px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 30px;
+    }
+
+    .resource-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s ease;
+      border: 2px solid transparent;
+    }
+
+    .resource-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(30, 144, 255, 0.2);
+      border-color: var(--primary);
+    }
+
+    .resource-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 25px;
+    }
+
+    .card-body h4 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: #222;
+    }
+
+    .card-body p {
+      color: #666;
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .btn-link:hover {
+      gap: 14px;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .main-content.with-sidebar {
+        margin-left: 0;
+      }
+      .hamburger {
+        display: block;
+      }
+      nav ul {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .content-section {
+        padding: 40px 20px;
+      }
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Simple footer */
+    footer {
+      background: #f8f9fa;
+      padding: 40px 60px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-logo">DUALVein</div>
+    
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="product.html">Product</a></li>
+      <li><a href="learning.html" class="active">Learning</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+
+    <!-- Hamburger for mobile + sidebar toggle -->
+    <div class="hamburger" id="hamburger">☰</div>
+  </nav>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>📚 IV Learning Hub</h2>
+      <p style="font-size:0.95rem; color:#666;">Open-source resources for nursing students</p>
+    </div>
+    
+    <ul class="sidebar-menu" id="sidebar-menu">
+      <li data-tab="overview" class="active"><span>🏠</span> Overview</li>
+      <li data-tab="articles"><span>📄</span> How to do IV – Articles</li>
+      <li data-tab="videos"><span>🎥</span> How to do IV – Video Training</li>
+      <li data-tab="anatomy"><span>🫀</span> Vein Anatomy & Physiology</li>
+      <li data-tab="complications"><span>⚠️</span> Common Complications</li>
+      <li data-tab="guidelines"><span>📋</span> Evidence-Based Guidelines</li>
+      <li data-tab="quizzes"><span>❓</span> Self-Assessment Quizzes</li>
+      <li data-tab="downloads"><span>⬇️</span> Downloadable Resources</li>
+    </ul>
+  </div>
+
+  <!-- Overlay -->
+  <div class="sidebar-overlay" id="overlay"></div>
+
+  <!-- Main Content -->
+  <div class="main-content" id="main-content">
+
+    <!-- Hero + Update Slider -->
+    <div class="learning-hero">
+      <div class="update-slider" id="update-slider">
+        
+        <!-- Slide 1 -->
+        <div class="slide active">
+          <div>
+            <h3>🚀 New 2024 INS Infusion Standards Released</h3>
+            <p>Major updates on PIVC insertion, site selection, and infection prevention now available. We've curated the key changes for you.</p>
+            <a href="#guidelines" class="btn-link" style="margin-top:10px;">Explore the updates →</a>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+          <div>
+            <h3>📈 DUALVein Accuracy Improved to 82%</h3>
+            <p>Latest clinical trials show our AI vein visualization now outperforms new nurses by 37%. Try the free demo inside the product section.</p>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+          <div>
+            <h3>🆕 New Video Series: Difficult Vein Access</h3>
+            <p>3 new videos added this week covering ultrasound-guided techniques and rolling veins.</p>
+            <a href="#videos" class="btn-link" style="margin-top:10px;">Watch now →</a>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+          <div>
+            <h3>🌍 Global Nursing Community</h3>
+            <p>Over 1,400 nursing students have contributed tips and resources. Share your own experience!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-dots" id="slider-dots"></div>
+
+      <div style="text-align:center; margin-top:30px;">
+        <h1 style="font-size:2.8rem; font-weight:900; background:linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">
+          Free IV &amp; Needle Insertion Learning Center
+        </h1>
+        <p style="font-size:1.3rem; max-width:720px; margin:0 auto; color:#444;">
+          Open-source collection of articles, videos, quizzes and tools for nursing students and educators worldwide.
+        </p>
+      </div>
+    </div>
+      
+
+    <!-- Articles Tab -->
+    <div class="content-section hidden" id="tab-articles">
+      <h2 class="section-title">How to Do IV – Articles &amp; Guides</h2>
+      <div class="grid-3" id="articles-grid">
+        <!-- Populated by JS below -->
+      </div>
+    </div>
+
+    <!-- Videos Tab -->
+    <div class="content-section hidden" id="tab-videos">
+      <h2 class="section-title">How to Do IV – Video Training</h2>
+      <div class="grid-3" id="videos-grid">
+        <!-- Populated by JS below -->
+      </div>
+    </div>
+
+    <!-- Anatomy Tab -->
+    <div class="content-section hidden" id="tab-anatomy">
+      <h2 class="section-title">Vein Anatomy &amp; Physiology</h2>
+      <div style="max-width:900px; margin:0 auto; background:white; padding:40px; border-radius:20px; box-shadow:0 10px 40px rgba(0,0,0,0.1);">
+        <p><strong>Key concepts every nursing student must know:</strong></p>
+        <ul style="line-height:2; margin-top:20px; font-size:1.1rem;">
+          <li>🔹 <strong>Veins vs Arteries</strong> – Veins have thinner walls, valves, and lower pressure</li>
+          <li>🔹 Best sites: Cephalic, Basilic, Median Cubital veins (antecubital fossa)</li>
+          <li>🔹 Avoid: Joints, areas with valves, scarred or thrombosed veins</li>
+          <li>🔹 DIVA score – Difficult Intravenous Access assessment tool</li>
+          <li>🔹 Skin tone considerations – Near-infrared (DUALVein) helps visualize deep veins</li>
+        </ul>
+        <a href="https://louis.pressbooks.pub/intravenoustherapy/chapter/anatomy/" target="_blank" class="btn-link" style="margin-top:30px; display:inline-block;">
+          Full Chapter – Anatomy &amp; Physiology for IV Therapy →
+        </a>
+      </div>
+    </div>
+
+    <!-- Complications Tab -->
+    <div class="content-section hidden" id="tab-complications">
+      <h2 class="section-title">Common IV Complications &amp; Troubleshooting</h2>
+      <div class="grid-3">
+        <div class="resource-card">
+          <div class="card-body">
+            <h4>Phlebitis</h4>
+            <p>Inflammation of the vein. Signs: redness, warmth, pain.</p>
+            <strong>Prevention:</strong> Proper site rotation, aseptic technique.
+          </div>
+        </div>
+        <div class="resource-card">
+          <div class="card-body">
+            <h4>Infiltration / Extravasation</h4>
+            <p>Fluid leaks into surrounding tissue.</p>
+            <strong>Action:</strong> Stop infusion immediately, elevate limb.
+          </div>
+        </div>
+        <div class="resource-card">
+          <div class="card-body">
+            <h4>Occlusion / Rolling Veins</h4>
+            <p>Most common beginner mistake.</p>
+            <strong>Tip:</strong> Anchor vein properly + use DUALVein visualization.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Guidelines Tab -->
+    <div class="content-section hidden" id="tab-guidelines">
+      <h2 class="section-title">Evidence-Based Guidelines (2024–2025)</h2>
+      <div style="background:white; padding:40px; border-radius:20px; box-shadow:0 10px 40px rgba(0,0,0,0.1); max-width:900px; margin:0 auto;">
+        <p><strong>Latest from Infusion Nurses Society (INS) 9th Edition</strong></p>
+        <ul style="margin-top:20px;">
+          <li>Limit attempts to 2 per clinician</li>
+          <li>Use ultrasound/near-infrared visualization for difficult access</li>
+          <li>Standardized skin antisepsis with CHG-alcohol</li>
+          <li>Daily assessment using i-DECIDED tool</li>
+        </ul>
+        <a href="https://www.ins1.org/publications/infusion-therapy-standards-of-practice/" target="_blank" class="btn-link">Read full INS Standards →</a>
+      </div>
+    </div>
+
+    <!-- Quizzes Tab -->
+    <div class="content-section hidden" id="tab-quizzes">
+      <h2 class="section-title">Test Your Knowledge</h2>
+      <div style="max-width:700px; margin:0 auto; text-align:center;">
+        <p>Simple 5-question IV insertion quiz (more coming soon!)</p>
+        <button onclick="startQuiz()" style="padding:15px 40px; background:var(--primary); color:white; border:none; border-radius:50px; font-size:1.1rem; margin-top:20px;">Start Quiz Now</button>
+      </div>
+    </div>
+
+    <!-- Downloads Tab -->
+    <div class="content-section hidden" id="tab-downloads">
+      <h2 class="section-title">Free Downloadable Resources</h2>
+      <div class="grid-3">
+        <div class="resource-card">
+          <div class="card-body">
+            <h4>IV Insertion Checklist (PDF)</h4>
+            <p>Step-by-step printable checklist</p>
+            <a href="#" class="btn-link">Download →</a>
+          </div>
+        </div>
+        <div class="resource-card">
+          <div class="card-body">
+            <h4>Vein Anatomy Cheat Sheet</h4>
+            <p>Quick reference for site selection</p>
+            <a href="#" class="btn-link">Download →</a>
+          </div>
+        </div>
+        <div class="resource-card">
+          <div class="card-body">
+            <h4>DUALVein Student Guide</h4>
+            <p>How to use visualization tech in training</p>
+            <a href="#" class="btn-link">Download →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    © 2026 DUALVein • Open-source IV Learning Hub • 
+    <a href="#" style="color:var(--primary);">Contribute a resource</a> • 
+    Made for nursing students, by nursing students + DUALVein
+  </footer>
+
+  <script>
+    // Toggle Sidebar
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const mainContent = document.getElementById('main-content');
+
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('show');
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+    });
+
+    // Tab switching
+    const menuItems = document.querySelectorAll('.sidebar-menu li');
+    const tabs = {
+      overview: document.getElementById('tab-overview'),
+      articles: document.getElementById('tab-articles'),
+      videos: document.getElementById('tab-videos'),
+      anatomy: document.getElementById('tab-anatomy'),
+      complications: document.getElementById('tab-complications'),
+      guidelines: document.getElementById('tab-guidelines'),
+      quizzes: document.getElementById('tab-quizzes'),
+      downloads: document.getElementById('tab-downloads')
+    };
+
+    function switchTab(tabName) {
+      // Hide all tabs
+      Object.values(tabs).forEach(tab => tab.classList.add('hidden'));
+      // Show selected
+      if (tabs[tabName]) tabs[tabName].classList.remove('hidden');
+      
+      // Update active menu
+      menuItems.forEach(item => {
+        if (item.getAttribute('data-tab') === tabName) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    }
+
+    menuItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const tabName = item.getAttribute('data-tab');
+        switchTab(tabName);
+        
+        // Close sidebar on mobile after click
+        if (window.innerWidth <= 992) {
+          sidebar.classList.remove('open');
+          overlay.classList.remove('show');
+        }
+      });
+    });
+
+    // Articles data (real sources)
+    const articlesData = [
+      {
+        title: "How to Start an IV – Ultimate Beginner’s Guide",
+        desc: "Step-by-step guide with tips from an ER nurse. Excellent for first-year students.",
+        link: "https://healthandwillness.org/how-to-start-an-iv/",
+        img: "https://picsum.photos/id/1015/600/300"
+      },
+      {
+        title: "Technology-Enhanced Education for IV Catheter Skills",
+        desc: "2025 study on how near-infrared tech improves student success (DUALVein related).",
+        link: "https://esmed.org/technology-enhanced-education-for-iv-catheter-skills/",
+        img: "https://picsum.photos/id/201/600/300"
+      },
+      {
+        title: "Peripheral Intravenous Catheter Insertion Standards",
+        desc: "Latest INS recommendations for safe IV practice.",
+        link: "https://www.ins1.org/publications/infusion-therapy-standards-of-practice/",
+        img: "https://picsum.photos/id/251/600/300"
+      }
+    ];
+
+    // Videos data (real YouTube links)
+    const videosData = [
+      {
+        title: "Peripheral IV Insertion – Clinical Nursing Skills",
+        channel: "Level Up RN",
+        link: "https://www.youtube.com/watch?v=ZLImaClqezE",
+        img: "https://picsum.photos/id/1005/600/300"
+      },
+      {
+        title: "IV Cannulation OSCE Guide",
+        channel: "Geeky Medics",
+        link: "https://www.youtube.com/watch?v=vE99rZ7JT3Q",
+        img: "https://picsum.photos/id/133/600/300"
+      },
+      {
+        title: "How to Start an IV – Full Procedure",
+        channel: "RegisteredNurseRN",
+        link: "https://www.youtube.com/watch?v=ue96cuS-lNs",
+        img: "https://picsum.photos/id/160/600/300"
+      },
+      {
+        title: "How to Anchor Veins & Prevent Rolling",
+        channel: "RegisteredNurseRN",
+        link: "https://www.youtube.com/watch?v=0n2ydn4crSg",
+        img: "https://picsum.photos/id/180/600/300"
+      }
+    ];
+
+    // Populate Articles
+    function populateArticles() {
+      const container = document.getElementById('articles-grid');
+      container.innerHTML = '';
+      articlesData.forEach(article => {
+        const card = document.createElement('div');
+        card.className = 'resource-card';
+        card.innerHTML = `
+          <img src="${article.img}" alt="${article.title}">
+          <div class="card-body">
+            <h4>${article.title}</h4>
+            <p>${article.desc}</p>
+            <a href="${article.link}" target="_blank" class="btn-link">Read Full Article →</a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Populate Videos
+    function populateVideos() {
+      const container = document.getElementById('videos-grid');
+      container.innerHTML = '';
+      videosData.forEach(video => {
+        const card = document.createElement('div');
+        card.className = 'resource-card';
+        card.innerHTML = `
+          <img src="${video.img}" alt="${video.title}">
+          <div class="card-body">
+            <h4>${video.title}</h4>
+            <p><strong>${video.channel}</strong></p>
+            <a href="${video.link}" target="_blank" class="btn-link">▶ Watch Video →</a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Simple Slider
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('slider-dots');
+
+    function createDots() {
+      slides.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.className = `dot ${i === 0 ? 'active' : ''}`;
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    function goToSlide(n) {
+      slides.forEach(s => s.classList.remove('active'));
+      slides[n].classList.add('active');
+      
+      document.querySelectorAll('.dot').forEach((d, i) => {
+        d.classList.toggle('active', i === n);
+      });
+      currentSlide = n;
+    }
+
+    function autoSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      goToSlide(currentSlide);
+    }
+
+    // Simple quiz demo
+    function startQuiz() {
+      alert("🎉 Quiz starting!\n\nQuestion 1: What is the maximum number of insertion attempts recommended per clinician?\n\n(A) 1   (B) 2   (C) 4\n\n(Answer: B – according to 2024 INS Standards)");
+      // You can expand this into a full interactive quiz later
+    }
+
+    // Initialize everything
+    window.addEventListener('load', () => {
+      populateArticles();
+      populateVideos();
+      createDots();
+      
+      // Auto slide every 6 seconds
+      setInterval(autoSlide, 6000);
+
+      console.log('%c✅ DUALVein learning.html loaded successfully!', 'color:#1E90FF; font-weight:900');
+    });
+  </script>
+</body>
+</html>
