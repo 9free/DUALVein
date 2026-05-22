@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DUALVein - Revolutionary Vein Visualization</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      background: #ffffff;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .circle-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      filter: blur(80px);
+      transition: opacity 1.5s ease;
+    }
+
+    .circle.show {
+      opacity: 0.8;
+    }
+
+    .circle.fade {
+      opacity: 0.05;
+    }
+
+    .circle-left {
+      background: linear-gradient(135deg, #1E90FF, #00B9D6);
+      width: 600px;
+      height: 600px;
+      top: -200px;
+      left: -200px;
+      animation: moveLeft 5s infinite alternate ease-in-out;
+    }
+
+    .circle-right {
+      background: linear-gradient(135deg, #00B9D6, #32CD32);
+      width: 700px;
+      height: 700px;
+      bottom: -250px;
+      right: -250px;
+      animation: moveRight 8s infinite alternate ease-in-out;
+    }
+
+    .circle-middle {
+      background: linear-gradient(135deg, #32CD32, #1E90FF);
+      width: 500px;
+      height: 500px;
+      top: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: pulse 1s infinite alternate ease-in-out;
+    }
+
+    @keyframes moveLeft {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(100px, 100px); }
+    }
+
+    @keyframes moveRight {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-80px, -80px); }
+    }
+
+    @keyframes pulse {
+      0% { transform: translateX(-50%) scale(1); }
+      100% { transform: translateX(-50%) scale(1.2); }
+    }
+  
+    .benefit-icon {
+      width: 140px;
+      height: 140px;
+      background: linear-gradient(135deg, #1E90FF, #00B9D6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 1.8rem;
+      color: white;
+      font-weight: 900;
+    }
+    .hero-content {
+      text-align: center;
+      z-index: 2;
+      position: relative;
+    }
+
+    .logo {
+      width: 700px;
+      max-width: 90vw;
+      transition: opacity 1s ease-out;
+    }
+
+    .logo.hide {
+      opacity: 0;
+    }
+
+    .hero-content h1 {
+      font-size: 7rem;
+      font-weight: 900;
+      margin-top: 20px;
+      background: linear-gradient(135deg, #1E90FF, #00B9D6, #32CD32);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0;
+      transition: opacity 2s ease;
+      letter-spacing: -2px;
+    }
+
+    .hero-content h1.show {
+      opacity: 1;
+    }
+
+    .hero-content p {
+      color: #333;
+      font-size: 1.5rem;
+      font-style: italic;
+      font-weight: 400;
+      opacity: 0;
+      transition: opacity 2s ease;
+      margin-top: 15px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-content p.show {
+      opacity: 1;
+    }
+
+    .cta-button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 15px 40px;
+      background: linear-gradient(135deg, #1E90FF, #00B9D6);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      opacity: 0;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(30, 144, 255, 0.3);
+    }
+
+    .cta-button.show {
+      opacity: 1;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(30, 144, 255, 0.4);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 20px 60px;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+      z-index: 100;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      pointer-events: none;
+    }
+
+    nav.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 50px;
+      list-style: none;
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: #1E90FF;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #1E90FF;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Section Styles */
+    .content-section {
+      padding: 100px 80px;
+      position: relative;
+    }
+
+    .content-section h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 60px;
+      color: #1E90FF;
+    }
+
+    /* Problem Section */
+    .problem-section {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    .problem-headline {
+      font-size: 3.5rem;
+      font-weight: 900;
+      text-align: center;
+      color: #d9534f;
+      margin-bottom: 40px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-top: 50px;
+    }
+
+    .problem-card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      transform: translateY(50px);
+      opacity: 0;
+      transition: all 0.6s ease;
+    }
+
+    .problem-card.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .problem-number {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: #d9534f;
+      margin-bottom: 15px;
+    }
+
+    .problem-card p {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    /* Solution Section */
+    .solution-section {
+      background: white;
+    }
+
+    .solution-intro {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 60px;
+      font-size: 1.3rem;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .benefit-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      border: 2px solid #e9ecef;
+      transition: all 0.4s ease;
+      transform: translateY(30px);
+      opacity: 0;
+    }
+
+    .benefit-card.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .benefit-card:hover {
+      border-color: #1E90FF;
+      box-shadow: 0 15px 50px rgba(30, 144, 255, 0.2);
+      transform: translateY(-10px);
+    }
+
+    .benefit-icon {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+    }
+
+    .benefit-card h3 {
+      font-size: 1.5rem;
+      color: #1E90FF;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .benefit-card p {
+      color: #666;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    /* Stats Section */
+    .stats-section {
+      background: linear-gradient(135deg, #1E90FF 0%, #00B9D6 100%);
+      color: white;
+    }
+
+    .stats-section h2 {
+      color: white;
+    }
+
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 50px;
+      margin-top: 50px;
+    }
+
+    .stat-box {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.6s ease;
+    }
+
+    .stat-box.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stat-box:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-10px);
+    }
+
+    .stat-box h3 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 15px;
+    }
+
+    .stat-box p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* How It Works Section */
+    .how-it-works-section {
+      background: #f8f9fa;
+    }
+
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .step-card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transform: scale(0.9);
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+
+    .step-card.show {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .step-number {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #1E90FF, #00B9D6);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 900;
+    }
+
+    .step-card h3 {
+      margin-top: 30px;
+      font-size: 1.4rem;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .step-card p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* Testimonials Section */
+    .testimonials-section {
+      background: white;
+    }
+
+    .testimonial-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 80px;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .testimonial-container.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .real-image {
+      width: 400px;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .testimonial-text {
+      max-width: 500px;
+    }
+
+    .testimonial-text p {
+      font-size: 1.8rem;
+      font-style: italic;
+      color: #333;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .testimonial-text p::before {
+      content: '"';
+      font-size: 4rem;
+      color: #1E90FF;
+      position: absolute;
+      left: -30px;
+      top: -10px;
+    }
+
+    .testimonial-text h4 {
+      font-size: 1.2rem;
+      color: #666;
+      font-weight: 600;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, #1E90FF 0%, #00B9D6 50%, #32CD32 100%);
+      color: white;
+      text-align: center;
+      padding: 120px 80px;
+    }
+
+    .cta-section h2 {
+      color: white;
+      font-size: 3.5rem;
+      margin-bottom: 30px;
+    }
+
+    .cta-section p {
+      font-size: 1.4rem;
+      margin-bottom: 40px;
+      opacity: 0.95;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn {
+      padding: 18px 45px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .cta-btn-primary {
+      background: white;
+      color: #1E90FF;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .cta-btn-primary:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .cta-btn-secondary {
+      background: transparent;
+      color: white;
+      border: 3px solid white;
+    }
+
+    .cta-btn-secondary:hover {
+      background: white;
+      color: #1E90FF;
+      transform: translateY(-5px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 3.5rem;
+      }
+
+      .hero-content p {
+        font-size: 1.1rem;
+      }
+
+      .content-section {
+        padding: 60px 30px;
+      }
+
+      .content-section h2 {
+        font-size: 2rem;
+      }
+
+      .problem-headline {
+        font-size: 2.5rem;
+      }
+
+      nav {
+        padding: 15px 20px;
+      }
+
+      nav ul {
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="circle-bg">
+      <div class="circle circle-left"></div>
+      <div class="circle circle-right"></div>
+      <div class="circle circle-middle"></div>
+    </div>
+
+    <div class="hero-content">
+      <img src="assets/DUALVein-logo.PNG" alt="DUALVein Logo" class="logo" id="logo">
+      <h1 id="brand-text" class="hidden">DUALVein</h1>
+      <p id="tagline" class="hidden">Revolutionary Solution for Needle Injection Guidance</p>
+      <a href="#contact" id="cta-btn" class="cta-button hidden">Get Started</a>
+    </div>
+  </section>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="hidden">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="learning.html">Learning Hub</a></li>
+      <li><a href="product.html">Product</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- Problem Section -->
+  <section class="content-section problem-section">
+    <p style="text-align: center; font-size: 1.3rem; color: #555; max-width: 800px; margin: 0 auto 40px;">
+      Tackling the most common healthcare problems: Intravenous Injection (IV) Failure.
+    </p>
+    <div class="problem-grid" id="problem-grid">
+      <div class="problem-card">
+        <div class="problem-number">1 in 4</div>
+        <p>Patients suffer bruising, pain, or discomfort from failed IV attempts</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-number">4B</div>
+        <p>Failed IV cases occur globally every year</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-number">390M HKD</div>
+        <p>Lost annually in China alone due to compensation costs</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section class="content-section solution-section">
+    <h2>Meet DUALVein</h2>
+    <p class="solution-intro">
+      An AI-powered, near-infrared vein visualization system that bridges the gap between classroom training and real clinical practice. DUALVein makes invisible veins visible and guides students toward safer IV insertion.
+    </p>
+    <div class="benefits-grid" id="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">$</div> 
+        <h3>Affordable</h3>
+        <p>Under 3,000 HKD manufacturing cost - up to 5x cheaper than existing solutions</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">75%</div>
+        <h3>Accurate</h3>
+        <p>75% vein detection accuracy, outperforming newly trained nurses by 30%</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">GO</div>
+        <h3>Portable</h3>
+        <p>Compact design works with any laptop - train anywhere, anytime</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="content-section stats-section">
+    <h2>Trusted by Professionals</h2>
+    <div class="stats-container" id="stats-container">
+      <div class="stat-box">
+        <h3 data-count="5">0+</h3>
+        <p>Institutions Collaborated</p>
+      </div>
+       <!-- 
+      <div class="stat-box">
+        <h3 data-count="75">0%</h3>
+        <p>Accuracy Achieved</p>
+      </div>
+    -->
+      <div class="stat-box">
+        <h3 data-count="100">0+</h3>
+        <p>Users Tested</p>
+      </div>
+      <div class="stat-box">
+        <h3 data-count="95">0%</h3>
+        <p>Student Approval Rate</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="content-section how-it-works-section">
+    <h2>How It Works</h2>
+    <div class="steps-container" id="steps-container">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h3>Connect</h3>
+        <p>Simply connect DUALVein to your laptop via USB</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h3>Position</h3>
+        <p>Place the patient's hand under the device</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h3>Detect</h3>
+        <p>AI detects and segments veins in real-time</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <h3>Guide</h3>
+        <p>Visual projection guides precise IV insertion</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="content-section testimonials-section">
+    <h2>What Professionals Say</h2>
+    <div class="testimonial-container" id="testimonial-container">
+      <img src="assets/Realuse1.jpg" alt="DUALVein in action" class="real-image">
+      <div class="testimonial-text">
+        <p>It's fast, precise, and easy to use.</p>
+        <h4> -  Dr. Sirijaroen A., Pediatrician</h4>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" id="contact">
+    <h2>Join the Revolution in Medical Training</h2>
+    <p>Partner with us to bring DUALVein to your institution and transform how healthcare professionals learn IV insertion.</p>
+    <div class="cta-buttons">
+      <a href="contact.html" class="cta-btn cta-btn-primary">Partner With Us</a>
+      <a href="product.html" class="cta-btn cta-btn-secondary">Request Demo</a>
+    </div>
+  </section>
+
+  <script>
+    window.addEventListener("load", () => {
+      const logo = document.getElementById("logo");
+      const brandText = document.getElementById("brand-text");
+      const tagline = document.getElementById("tagline");
+      const ctaBtn = document.getElementById("cta-btn");
+      const navbar = document.getElementById("navbar");
+      const circles = document.querySelectorAll(".circle");
+
+      // Logo animation sequence
+      setTimeout(() => {
+        logo.classList.add("hide");
+        setTimeout(() => {
+          logo.style.display = "none";
+          brandText.classList.remove("hidden");
+          tagline.classList.remove("hidden");
+          ctaBtn.classList.remove("hidden");
+          circles.forEach(circle => circle.classList.add("show"));
+          
+          setTimeout(() => {
+            brandText.classList.add("show");
+            tagline.classList.add("show");
+            setTimeout(() => {
+              ctaBtn.classList.add("show");
+            }, 500);
+          }, 300);
+        }, 1000);
+      }, 1500);
+
+      // Navbar appearance
+      setTimeout(() => {
+        navbar.classList.remove("hidden");
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            navbar.classList.add("show");
+          }, 20);
+        });
+      }, 3500);
+
+      // Scroll animations
+      const observerOptions = {
+        threshold: 0.2,
+        rootMargin: '0px 0px -100px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+          }
+        });
+      }, observerOptions);
+
+      // Observe all animated elements
+      document.querySelectorAll('.problem-card, .benefit-card, .stat-box, .step-card, .testimonial-container').forEach(el => {
+        observer.observe(el);
+      });
+
+      // Animate stats numbers
+      const animateStats = (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const counters = entry.target.querySelectorAll('.stat-box h3');
+            counters.forEach(counter => {
+              if (!counter.classList.contains('counted')) {
+                counter.classList.add('counted');
+                const target = parseInt(counter.getAttribute('data-count'));
+                const suffix = counter.textContent.includes('%') ? '%' : '+';
+                let count = 0;
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                
+                const updateCount = () => {
+                  count += increment;
+                  if (count >= target) {
+                    counter.textContent = target + suffix;
+                  } else {
+                    counter.textContent = Math.floor(count) + suffix;
+                    requestAnimationFrame(updateCount);
+                  }
+                };
+                requestAnimationFrame(updateCount);
+              }
+            });
+          }
+        });
+      };
+
+      const statsObserver = new IntersectionObserver(animateStats, observerOptions);
+      const statsSection = document.getElementById('stats-container');
+      if (statsSection) statsObserver.observe(statsSection);
+
+      // Fade circles on scroll
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+          circles.forEach(circle => circle.classList.add('fade'));
+        } else {
+          circles.forEach(circle => circle.classList.remove('fade'));
+        }
+      });
+    });
+  </script>
+</body>
+</html>
